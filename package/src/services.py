@@ -749,7 +749,6 @@ def show_notes(notes):
 # # Call the function to start processing user input
 # process_input(commands)
 
-
 # Define the commands dictionary
 commands = {
     # Search
@@ -794,7 +793,7 @@ commands = {
 # Function to format the list of commands
 def show_commands():
     """
-    This function displays a formatted list of available commands with 
+    This function displays a formatted list of available commands with
     descriptions and corresponding numbers for reference.
 
     Returns:
@@ -803,13 +802,12 @@ def show_commands():
 
     res = []
     for index, (command, description) in enumerate(commands.items(), start=1):
-        res.append("    {:<25}  ==>  {} ({})".format(command, description, index))
+        res.append("  {:<25}  ==>  {} ({})".format(command, description, index))
     return "\n".join(res)
 
 def process_input(commands):
     """
-    This function handles user input,
-    breaks it down into command and arguments,
+    This function handles user input, breaks it down into command and arguments,
     and then calls the appropriate function.
 
     Args:
@@ -821,40 +819,30 @@ def process_input(commands):
 
     while True:
         # Get user input
-        user_input = input("Enter a command or command number: ").strip()  # Remove leading/trailing whitespace
+        user_input = input("Enter a command or command number: ").strip()
 
-        # Exit the program if user enters 'exit'
+        # Check if user wants to exit
         if user_input.lower() == "exit":
             print("Don't worry, all data saved to file.")
             print("Good bye!")
             return False
 
-        # Check if the input is a number
-        if user_input.isdigit():
-            # If the input is a number, try to find the corresponding command
+        try:
+            # Attempt to convert input to a number (for command number)
             command_number = int(user_input)
+
+            # Validate command number within range
             if 1 <= command_number <= len(commands):
                 command = list(commands.keys())[command_number - 1]
                 print(f"Executing command: {command}")
-                # Here you would call the appropriate function based on the command and arguments
+                # Implement function call based on the command (add missing implementation)
+                # ... (replace with actual function calls)
+
             else:
                 print("Invalid command number. Please try again.")
-        else:
-            # If the input is not a number, try to find the command directly
-            found_command = False
-            for command, description in commands.items():
-                if user_input.lower() in command.lower():
-                    print(f"Executing command: {command}")
-                    found_command = True
-                    # Here you would call the appropriate function based on the command and arguments
-                    break
-            if not found_command:
-                print("Invalid command. Enter 'help' for help.")
 
-if __name__ == "__main__":
-    process_input(commands)
-
-
+        except ValueError:
+            # If input is not a number, try to find
 
 
 @input_error
