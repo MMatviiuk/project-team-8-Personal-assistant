@@ -629,6 +629,7 @@ def show_notes(notes):
     else:
         return "No notes added."
 
+
 # Import libraries
 import re
 
@@ -705,7 +706,6 @@ def show_commands(commands):
     return "\n".join(formatted_commands)
 
 
-# Function to process user input
 # Function to process user input
 def process_input(commands):
     """
