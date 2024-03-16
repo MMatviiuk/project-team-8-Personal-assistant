@@ -922,11 +922,16 @@ def main():
         "exit (28)": "Exit the program",
     }
 
-    def show_commands():
-        res = []
-        for index, (command, description) in enumerate(commands.items(), start=1):
-            res.append("  {:<25}  ==>  {} ({})".format(command, description, index))
-        return "\n".join(res)
+def show_commands():
+    """Prints a list of available commands"""
+    res = []
+    for index, (command, description) in enumerate(commands.items(), start=1):
+        res.append(f"  {command:<25} ==> {description} ({index})")  # Use f-strings for cleaner formatting
+    return "\n".join(res)
+
+# Simulate the assistant running
+print("Welcome to the assistant bot!")
+print(show_commands())  # Call the function to display commands
 
     def process_input(commands):
         while True:
