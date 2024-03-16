@@ -750,109 +750,239 @@ def show_notes(notes):
 # process_input(commands)
 
 
-# Define the contacts list
-contacts = []
+from collections import UserDict
+from datetime import datetime, timedelta
+import json
 
-# Define the commands dictionary
-commands = {
-    # Search
-    "find [name] (1)": "Find contact by name",
-    "phone [name] (2)": "Get person's phone numbers",
-    "email [name] (3)": "Get person's email addresses",
-    "show-birthday [name] (4)": "Get person's birthday",
-    "show-address [name] (5)": "Show person's address",
-    "show-note [name] (6)": "Get person's note",
-    "birthdays (without argument) (7)": "Get all persons with birthdays next week",
-    "birthdays [days] (8)": "Get birthdays list for a custom number of days",
-    "all (9)": "Get all contacts list",
 
-    # Add
-    "add [name] [phone] (10)": "Add new contact",
-    "add-birthday [name] (11)": "Add person's birthday",
-    "add-email [name] [email] (12)": "Add email to existing contact",
-    "add-address [name] [street] [house_number] [city] [postal_code] [country] (13)": "Add address",
-    "add-note [name] (14)": "Add person's note",
+class Field:
+    def __init__(self, value):
+        self.value = value
 
-    # Change
-    "change [name] [phone] (15)": "Change person's phone number",
-    "change-birthday [name] (16)": "Change person's birthday",
-    "edit-address [name] [street] [house_number] [city] [postal_code] [country] (17)": "Edit address",
-    "change-note [name] (18)": "Change person's note",
+    def __str__(self):
+        return str(self.value)
 
-    # Delete
-    "delete [name] (19)": "Delete contact",
-    "delete [name] phones (20)": "Delete person's phones",
-    "delete-birthday [name] (21)": "Delete person's birthday",
-    "delete-email [name] [email] (22)": "Delete specific email of a contact",
-    "delete-address [name] (23)": "Delete person's address (by index)",
-    "delete-note [name] (24)": "Delete person's note",
-    "delete [name] notes (25)": "Delete all notes of a contact",
 
-    # General
-    "help (26)": "Get help",
-    "hello (27)": "Get a greeting",
-    "exit (28)": "Exit the program",
-}
+class Name(Field):
+    def validate(self):
+        if not self.value.isalpha():
+            raise ValueError("Name should contain only letters.")
 
-# Function to format the list of commands
-def show_commands():
-    """
-    This function displays a formatted list of available commands with
-    descriptions and corresponding numbers for reference.
 
-    Returns:
-        A string containing the formatted list of commands, separated by newlines.
-    """
+class Phone(Field):
+    def validate(self):
+        if len(self.value) != 10 or not self.value.isdigit():
+            raise ValueError("Phone number must be 10 digits and contain only digits.")
 
-    res = []
-    for index, (command, description) in enumerate(commands.items(), start=1):
-        res.append("  {:<25}  ==>  {} ({})".format(command, description, index))
-    return "\n".join(res)
 
-def process_input(commands):
-    """
-    This function handles user input, breaks it down into command and arguments,
-    and then calls the appropriate function.
-
-    Args:
-        commands: A dictionary of available commands.
-
-    Returns:
-        A boolean value indicating whether the program should continue running.
-    """
-
-    while True:
-        # Get user input
-        user_input = input("Enter a command or command number: ").strip()
-
-        # Check if user wants to exit
-        if user_input.lower() == "exit":
-            print("Don't worry, all data saved to file.")
-            print("Good bye!")
-            return False
-
+class Birthday(Field):
+    def validate(self):
         try:
-            # Attempt to convert input to a number (for command number)
-            command_number = int(user_input)
-
-            # Validate command number within range
-            if 1 <= command_number <= len(commands):
-                command = list(commands.keys())[command_number - 1]
-                print(f"Executing command: {command}")
-                # Your code to execute the command goes here
-            else:
-                print("Invalid command number. Please try again.")
+            datetime.strptime(self.value, "%d.%m.%Y")
         except ValueError:
-            # If conversion to number fails, try to find the command directly
-            if user_input in commands:
-                print(f"Executing command: {user_input}")
-                # Your code to execute the command goes here
+            raise ValueError("Invalid birthday format. Please use DD.MM.YYYY.")
+
+
+class Record:
+    def __init__(self, name, phones=None, birthday=None):
+        self.name = Name(name)
+        self.name.validate()
+        self.phones = []
+        if phones:
+            for phone in phones:
+                self.add_phone(phone)
+        self.birthday = None
+        if birthday:
+            self.add_birthday(birthday)
+
+    def add_phone(self, phone):
+        phone_obj = Phone(phone)
+        phone_obj.validate()
+        self.phones.append(phone_obj)
+
+    def remove_phone(self, phone):
+        ph = self.find_phone(phone)
+        if ph:
+            self.phones.remove(ph)
+
+    def edit_phone(self, old_phone, new_phone):
+        self.remove_phone(old_phone)
+        self.add_phone(new_phone)
+
+    def find_phone(self, phone):
+        for ph in self.phones:
+            if ph.value == phone:
+                return ph
+
+    def add_birthday(self, birthday):
+        birthday_obj = Birthday(birthday)
+        birthday_obj.validate()
+        self.birthday = birthday_obj
+
+    def show_birthday(self):
+        return self.birthday.value if self.birthday else "No birthday set"
+
+    def __str__(self):
+        return f"Contact name: {self.name.value}, phones: {', '.join(str(phone) for phone in self.phones)}, Birthday: {self.show_birthday()}"
+
+
+class AddressBook(UserDict):
+    def __init__(self, filename="address_book.json"):
+        self.filename = filename
+        self.data = self.load()
+
+    def load(self):
+        try:
+            with open(self.filename, "r") as f:
+                return {
+                    k: Record(v["name"], v["phones"], v["birthday"])
+                    for k, v in json.load(f).items()
+                }
+        except (FileNotFoundError, json.JSONDecodeError):
+            return {}
+
+    def save(self):
+        with open(self.filename, "w") as f:
+            json.dump(self.data, f, indent=4)
+
+    def add_record(self, record):
+        self.data[record.name.value] = record
+
+    def find(self, name):
+        name = name.title()
+        return self.data.get(name)
+
+    def delete(self, name):
+        del self.data[name]
+
+    def show_all(self):
+        if self.data:
+            for record in self.data.values():
+                print(record)
+        else:
+            print("No contacts found.")
+
+    def get_birthdays_per_week(self):
+        today = datetime.today()
+        next_week = today + timedelta(days=7)
+        birthdays = []
+        for record in self.data.values():
+            if record.birthday:
+                birthday_date = datetime.strptime(record.birthday.value, "%d.%m.%Y")
+                if today <= birthday_date <= next_week:
+                    birthdays.append((record.name.value, record.birthday.value))
+        return birthdays
+
+
+def main():
+    users = [
+        {"name": "John", "surname": "Forbes Nash Jr.", "birthday": "13.06.1928"},
+        {"name": "Andrew", "surname": "Wiles", "birthday": "11.04.1953"},
+        {"name": "Guido", "surname": "van Rossum", "birthday": "31.01.1956"},
+        {"name": "Satya", "surname": "Nadella", "birthday": "19.08.1967"},
+        {"name": "Demis", "surname": "Hassabis", "birthday": "27.07.1976"},
+    ]
+
+    book = AddressBook()
+
+    for user in users:
+        name = user["name"]
+        phones = []
+        birthday = user["birthday"]
+        record = Record(name, phones, birthday)
+        book.add_record(record)
+
+    commands = {
+        "find [name] (1)": "Find contact by name",
+        "phone [name] (2)": "Get person's phone numbers",
+        "email [name] (3)": "Get person's email addresses",
+        "show-birthday [name] (4)": "Get person's birthday",
+        "show-address [name] (5)": "Show person's address",
+        "show-note [name] (6)": "Get person's note",
+        "birthdays (without argument) (7)": "Get all persons with birthdays next week",
+        "birthdays [days] (8)": "Get birthdays list for a custom number of days",
+        "all (9)": "Get all contacts list",
+        "add [name] [phone] (10)": "Add new contact",
+        "add-birthday [name] (11)": "Add person's birthday",
+        "add-email [name] [email] (12)": "Add email to existing contact",
+        "add-address [name] [street] [house_number] [city] [postal_code] [country] (13)": "Add address",
+        "add-note [name] (14)": "Add person's note",
+        "change [name] [phone] (15)": "Change person's phone number",
+        "change-birthday [name] (16)": "Change person's birthday",
+        "edit-address [name] [street] [house_number] [city] [postal_code] [country] (17)": "Edit address",
+        "change-note [name] (18)": "Change person's note",
+        "delete [name] (19)": "Delete contact",
+        "delete [name] phones (20)": "Delete person's phones",
+        "delete-birthday [name] (21)": "Delete person's birthday",
+        "delete-email [name] [email] (22)": "Delete specific email of a contact",
+        "delete-address [name] (23)": "Delete person's address (by index)",
+        "delete-note [name] (24)": "Delete person's note",
+        "delete [name] notes (25)": "Delete all notes of a contact",
+        "help (26)": "Get help",
+        "hello (27)": "Get a greeting",
+        "exit (28)": "Exit the program",
+    }
+
+    def show_commands():
+        """
+        This function displays a formatted list of available commands with 
+        descriptions and corresponding numbers for reference.
+
+        Returns:
+            A string containing the formatted list of commands, separated by newlines.
+        """
+        res = []
+        for index, (command, description) in enumerate(commands.items(), start=1):
+            res.append("    {:<25}  ==>  {} ({})".format(command, description, index))
+        return "\n".join(res)
+
+    def process_input(commands):
+        """
+        This function handles user input,
+        breaks it down into command and arguments,
+        and then calls the appropriate function.
+
+        Args:
+            commands: A dictionary of available commands.
+
+        Returns:
+            A boolean value indicating whether the program should continue running.
+        """
+
+        while True:
+            # Get user input
+            user_input = input("Enter a command or command number: ").strip()
+
+            # Exit the program if user enters 'exit'
+            if user_input.lower() == "exit":
+                print("Don't worry, all data saved to file.")
+                print("Good bye!")
+                return False
+
+            # Check if the input is a number
+            if user_input.isdigit():
+                # If the input is a number, try to find the corresponding command
+                command_number = int(user_input)
+                if 1 <= command_number <= len(commands):
+                    command = list(commands.keys())[command_number - 1]
+                    print(f"Executing command: {command}")
+                    # Your code to execute the command goes here
+                else:
+                    print("Invalid command number. Please try again.")
             else:
-                print("Invalid command. Enter 'help' for help.")
+                # If the input is not a number, try to find the command directly
+                if user_input in commands:
+                    print(f"Executing command: {user_input}")
+                    # Your code to execute the command goes here
+                else:
+                    print("Invalid command. Enter 'help' for help.")
+
+    process_input(commands)
 
 
-# Test the code
-process_input(commands)
+if __name__ == "__main__":
+    main()
+
 
 
 @input_error
