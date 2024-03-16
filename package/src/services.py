@@ -704,6 +704,7 @@ def show_commands(commands):
     # Join all formatted commands with newlines to create the final output string.
     return "\n".join(formatted_commands)
 
+
 # Function to process user input
 def process_input(commands):
     """
@@ -737,6 +738,13 @@ def process_input(commands):
             # Here you would call the appropriate function based on the command and arguments
         else:
             print("Invalid command. Please try again.")
+
+# Call the function to display the commands
+print(show_commands(commands))
+
+# Call the function to start processing user input
+process_input(commands)
+
 
 # def show_commands():
 #     commands = {
