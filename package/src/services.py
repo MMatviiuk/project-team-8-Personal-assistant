@@ -839,111 +839,21 @@ def process_input(commands):
             if 1 <= command_number <= len(commands):
                 command = list(commands.keys())[command_number - 1]
                 print(f"Executing command: {command}")
-                execute_command(command)
+                # Your code to execute the command goes here
             else:
-                print("Invalid command number. Enter 'help' for help.")
-
+                print("Invalid command number. Please try again.")
         except ValueError:
-            # If input cannot be converted to a number, check if it's a valid command
+            # If conversion to number fails, try to find the command directly
             if user_input in commands:
                 print(f"Executing command: {user_input}")
-                execute_command(user_input)
+                # Your code to execute the command goes here
             else:
                 print("Invalid command. Enter 'help' for help.")
 
-def execute_command(command):
-    """
-    Executes the given command.
 
-    Args:
-        command: The command to be executed.
-    """
-    # Your code to execute the command goes here
-    if command.startswith("find"):
-        name = input("Enter the name to search for: ")
-        # Find contact by name functionality
-        pass
-    elif command.startswith("phone"):
-        name = input("Enter the name to get phone numbers: ")
-        # Get person's phone numbers functionality
-        pass
-    elif command.startswith("email"):
-        name = input("Enter the name to get email addresses: ")
-        # Get person's email addresses functionality
-        pass
-    elif command.startswith("show-birthday"):
-        name = input("Enter the name to show birthday: ")
-        # Get person's birthday functionality
-        pass
-    elif command.startswith("show-address"):
-        name = input("Enter the name to show address: ")
-        # Show person's address functionality
-        pass
-    elif command.startswith("show-note"):
-        name = input("Enter the name to get note: ")
-        # Get person's note functionality
-        pass
-    elif command.startswith("birthdays"):
-        days = input("Enter number of days (leave blank for default): ")
-        # Get all persons with birthdays functionality
-        pass
-    elif command.startswith("all"):
-        # Get all contacts list functionality
-        pass
-    elif command.startswith("add"):
-        # Add new contact functionality
-        pass
-    elif command.startswith("add-birthday"):
-        # Add person's birthday functionality
-        pass
-    elif command.startswith("add-email"):
-        # Add email to existing contact functionality
-        pass
-    elif command.startswith("add-address"):
-        # Add address functionality
-        pass
-    elif command.startswith("add-note"):
-        # Add person's note functionality
-        pass
-    elif command.startswith("change"):
-        # Change person's phone number functionality
-        pass
-    elif command.startswith("change-birthday"):
-        # Change person's birthday functionality
-        pass
-    elif command.startswith("edit-address"):
-        # Edit address functionality
-        pass
-    elif command.startswith("change-note"):
-        # Change person's note functionality
-        pass
-    elif command.startswith("delete"):
-        # Delete contact functionality
-        pass
-    elif command.startswith("delete-email"):
-        # Delete specific email of a contact functionality
-        pass
-    elif command.startswith("delete-address"):
-        # Delete person's address functionality
-        pass
-    elif command.startswith("delete-note"):
-        # Delete person's note functionality
-        pass
-    elif command.startswith("hello"):
-        # Get a greeting functionality
-        pass
-    elif command.startswith("help"):
-        # Get help functionality
-        pass
-    elif command.startswith("exit"):
-        # Exit the program functionality
-        pass
-    else:
-        print("Invalid command.")
+# Test the code
+process_input(commands)
 
-# Entry point of the program
-if __name__ == "__main__":
-    process_input(commands)
 
 
 @input_error
