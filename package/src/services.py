@@ -924,45 +924,20 @@ def main():
     }
 
     def show_commands():
-        """
-        This function displays a formatted list of available commands with 
-        descriptions and corresponding numbers for reference.
-
-        Returns:
-            A string containing the formatted list of commands, separated by newlines.
-        """
         res = []
         for index, (command, description) in enumerate(commands.items(), start=1):
             res.append("    {:<25}  ==>  {} ({})".format(command, description, index))
         return "\n".join(res)
 
     def process_input(commands):
-        """
-        This function handles user input,
-        breaks it down into command and arguments,
-        and then calls the appropriate function.
-
-        Args:
-            commands: A dictionary of available commands.
-
-        Returns:
-            A boolean value indicating whether the program should continue running.
-        """
-
         while True:
-            # Get user input
             user_input = input("Enter a command or command number: ").strip()
-
-            # Exit the program if user enters 'exit'
             if user_input.lower() == "exit":
-                print("Don't worry, all data saved to file.")
                 print("Good bye!")
                 book.save()
                 return False
 
-            # Check if the input is a number
             if user_input.isdigit():
-                # If the input is a number, try to find the corresponding command
                 command_number = int(user_input)
                 if 1 <= command_number <= len(commands):
                     command = list(commands.keys())[command_number - 1]
@@ -994,10 +969,8 @@ def main():
                 else:
                     print("Invalid command number. Please try again.")
             else:
-                # If the input is not a number, try to find the command directly
                 if user_input in commands:
                     print(f"Executing command: {user_input}")
-                    # Your code to execute the command goes here
                     command = user_input
                     if command == "find [name] (1)":
                         name = input("Enter the name to search for: ")
@@ -1025,6 +998,8 @@ def main():
                 else:
                     print("Invalid command. Enter 'help' for help.")
 
+    print("Data loaded from file.")
+    print("Welcome to the assistant bot!")
     process_input(commands)
 
 
