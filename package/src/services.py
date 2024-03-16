@@ -749,6 +749,7 @@ def show_notes(notes):
 # # Call the function to start processing user input
 # process_input(commands)
 
+
 # Define the contacts list
 contacts = []
 
@@ -848,7 +849,7 @@ def process_input(commands):
                 print(f"Executing command: {user_input}")
                 execute_command(user_input)
             else:
-                print("Invalid command. Please try again.")
+                print("Invalid command. Enter 'help' for help.")
 
 def execute_command(command):
     """
@@ -862,6 +863,7 @@ def execute_command(command):
         # Your code to execute the find command goes here
     elif command.startswith("phone"):
         name = input("Enter the name to get phone numbers: ")
+        # Your code to execute the phone command goes here
 
 # Entry point of the program
 if __name__ == "__main__":
