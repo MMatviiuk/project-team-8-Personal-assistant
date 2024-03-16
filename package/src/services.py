@@ -752,12 +752,6 @@ def show_notes(notes):
 # Define the contacts list
 contacts = []
 
-# Define the contacts list
-contacts = []
-
-# Define the contacts list
-contacts = []
-
 # Define the commands dictionary
 commands = {
     # Search
@@ -802,7 +796,7 @@ commands = {
 # Function to format the list of commands
 def show_commands():
     """
-    This function displays a formatted list of available commands with 
+    This function displays a formatted list of available commands with
     descriptions and corresponding numbers for reference.
 
     Returns:
@@ -816,8 +810,7 @@ def show_commands():
 
 def process_input(commands):
     """
-    This function handles user input,
-    breaks it down into command and arguments,
+    This function handles user input, breaks it down into command and arguments,
     and then calls the appropriate function.
 
     Args:
@@ -845,39 +838,34 @@ def process_input(commands):
             if 1 <= command_number <= len(commands):
                 command = list(commands.keys())[command_number - 1]
                 print(f"Executing command: {command}")
-                # Here you would call the appropriate function based on the command and arguments
+                execute_command(command)
             else:
                 print("Invalid command number. Please try again.")
+
         except ValueError:
-            # If conversion to integer fails, it's not a command number, try finding command directly
-            found_command = False
-            for cmd, desc in commands.items():
-                if user_input.lower() in cmd.lower():
-                    found_command = True
-                    print(f"Executing command: {cmd}")
-                    # Here you would call the appropriate function based on the command and arguments
-                    break
-            if not found_command:
-                print("Invalid command. Enter 'help' for help.")
+            # If input cannot be converted to a number, check if it's a valid command
+            if user_input in commands:
+                print(f"Executing command: {user_input}")
+                execute_command(user_input)
+            else:
+                print("Invalid command. Please try again.")
 
-# Placeholder classes for demonstration purposes
-class Contact:
-    def __init__(self, name, phones=[], emails=[]):
-        self.name = name
-        self.phones = phones
-        self.emails = emails
+def execute_command(command):
+    """
+    Executes the given command.
 
-# Example usage
-# Creating some contacts
-contact1 = Contact("John Doe", ["123-456-7890", "987-654-3210"], ["john@example.com"])
-contact2 = Contact("Jane Smith", ["111-222-3333"], ["jane@example.com"])
+    Args:
+        command: The command to be executed.
+    """
+    if command.startswith("find"):
+        name = input("Enter the name to search for: ")
+        # Your code to execute the find command goes here
+    elif command.startswith("phone"):
+        name = input("Enter the name to get phone numbers: ")
 
-# Adding contacts to the list
-contacts.append(contact1)
-contacts.append(contact2)
-
-# Running the command processing loop
-process_input(commands)
+# Entry point of the program
+if __name__ == "__main__":
+    process_input(commands)
 
 
 
