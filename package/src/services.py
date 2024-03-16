@@ -858,13 +858,88 @@ def execute_command(command):
     Args:
         command: The command to be executed.
     """
+    # Your code to execute the command goes here
     if command.startswith("find"):
         name = input("Enter the name to search for: ")
-        # Your code to execute the find command goes here
+        # Find contact by name functionality
+        pass
     elif command.startswith("phone"):
         name = input("Enter the name to get phone numbers: ")
-        # Your code to execute the phone command goes here
-    # Add more conditions for other commands as needed
+        # Get person's phone numbers functionality
+        pass
+    elif command.startswith("email"):
+        name = input("Enter the name to get email addresses: ")
+        # Get person's email addresses functionality
+        pass
+    elif command.startswith("show-birthday"):
+        name = input("Enter the name to show birthday: ")
+        # Get person's birthday functionality
+        pass
+    elif command.startswith("show-address"):
+        name = input("Enter the name to show address: ")
+        # Show person's address functionality
+        pass
+    elif command.startswith("show-note"):
+        name = input("Enter the name to get note: ")
+        # Get person's note functionality
+        pass
+    elif command.startswith("birthdays"):
+        days = input("Enter number of days (leave blank for default): ")
+        # Get all persons with birthdays functionality
+        pass
+    elif command.startswith("all"):
+        # Get all contacts list functionality
+        pass
+    elif command.startswith("add"):
+        # Add new contact functionality
+        pass
+    elif command.startswith("add-birthday"):
+        # Add person's birthday functionality
+        pass
+    elif command.startswith("add-email"):
+        # Add email to existing contact functionality
+        pass
+    elif command.startswith("add-address"):
+        # Add address functionality
+        pass
+    elif command.startswith("add-note"):
+        # Add person's note functionality
+        pass
+    elif command.startswith("change"):
+        # Change person's phone number functionality
+        pass
+    elif command.startswith("change-birthday"):
+        # Change person's birthday functionality
+        pass
+    elif command.startswith("edit-address"):
+        # Edit address functionality
+        pass
+    elif command.startswith("change-note"):
+        # Change person's note functionality
+        pass
+    elif command.startswith("delete"):
+        # Delete contact functionality
+        pass
+    elif command.startswith("delete-email"):
+        # Delete specific email of a contact functionality
+        pass
+    elif command.startswith("delete-address"):
+        # Delete person's address functionality
+        pass
+    elif command.startswith("delete-note"):
+        # Delete person's note functionality
+        pass
+    elif command.startswith("hello"):
+        # Get a greeting functionality
+        pass
+    elif command.startswith("help"):
+        # Get help functionality
+        pass
+    elif command.startswith("exit"):
+        # Exit the program functionality
+        pass
+    else:
+        print("Invalid command.")
 
 # Entry point of the program
 if __name__ == "__main__":
