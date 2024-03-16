@@ -750,8 +750,8 @@ def show_notes(notes):
 # process_input(commands)
 
 
-def show_commands():
-    commands = {
+# Define the commands dictionary
+commands = {
     # Search
     "find [name] (1)": "Find contact by name",
     "phone [name] (2)": "Get person's phone numbers",
@@ -789,12 +789,64 @@ def show_commands():
     "help (26)": "Get help",
     "hello (27)": "Get a greeting",
     "exit (28)": "Exit the program",
-    }
+}
+
+# Function to format the list of commands
+def show_commands():
+    """
+    This function displays a formatted list of available commands with 
+    descriptions and corresponding numbers for reference.
+
+    Returns:
+        A string containing the formatted list of commands, separated by newlines.
+    """
 
     res = []
-    for command, desctiption in commands.items():
-        res.append("    {:<25}  ==>  {} ".format(command, desctiption))
+    for index, (command, description) in enumerate(commands.items(), start=1):
+        res.append("    {:<25}  ==>  {} ({})".format(command, description, index))
     return "\n".join(res)
+
+# Function to process user input
+def process_input():
+    """
+    This function handles user input, 
+    breaks it down into command and arguments, 
+    and then calls the appropriate function.
+
+    Returns:
+        A boolean value indicating whether the program should continue running.
+    """
+
+    while True:
+        # Get user input
+        user_input = input("Insert command or command number: ").strip().lower()  # Convert input to lowercase and remove whitespace
+
+        # Exit the program if user enters 'exit'
+        if user_input == "exit":
+            return False
+
+        # Check if the input is a command number
+        if user_input.isdigit():
+            command_number = int(user_input)
+            if 1 <= command_number <= len(commands):
+                # Get the corresponding command from the list of commands
+                command = list(commands.keys())[command_number - 1]
+                print(f"Executing command: {command}")
+                # Here you would call the appropriate function based on the command and arguments
+                continue
+
+        # Check if the command is valid
+        if user_input in commands:
+            print(f"Executing command: {user_input}")
+            # Here you would call the appropriate function based on the command and arguments
+        else:
+            print("Invalid command or command number. Please try again.")
+
+# Call the function to display the commands
+print(show_commands())
+
+# Call the function to start processing user input
+process_input()
 
 
 @input_error
