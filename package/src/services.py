@@ -643,7 +643,7 @@ def format_commands(commands):
 
 # User menu
 commands = {
-    "Search Functions"
+    # Search
     "find [name] (1)": "Find contact by name",
     "phone [name] (2)": "Get person phone numbers",
     "email [name] (3)": "Get emails of person",
@@ -653,21 +653,18 @@ commands = {
     "birthdays (without argument) (7)": "Get all persons with birthdays next week",
     "birthdays [days] (8)": "Get birthdays list for a custom number of days",
     "all (9)": "Get all contacts list",
-    
-    "Add Functions"
+    # Add
     "add [name] [phone] (10)": "Add new contact",
     "add-birthday [name] (11)": "Add person birthday",
     "add-email [name] [email] (12)": "Add email to existing contact",
     "add-address [name] [street] [house_number] [city] [postal_code] [country] (13)": "Add address",
     "add-note [name] (14)": "Add person note",
-    
-    "Edit Functions"
+    # Change
     "change [name] [phone] (15)": "Change person phone number",
     "change-birthday [name] (16)": "Change person birthday",
     "edit-address [name] [street] [house_number] [city] [postal_code] [country] (17)": "Edit address",
     "change-note [name] (18)": "Change person note",
-    
-    "Delete Functions"
+    # Delete
     "delete [name] (19)": "Delete contact",
     "delete [name] phones (20)": "Delete person phones",
     "delete-birthday [name] (21)": "Delete person birthday",
@@ -675,8 +672,7 @@ commands = {
     "delete-address [name] (23)": "Delete person address (by index)",
     "delete-note [name] (24)": "Delete person note",
     "delete [name] notes (25)": "Delete all notes of a contact",
-    
-    "General Functions"
+    # General
     "help (26)": "Get help",
     "hello (27)": "Get a greeting",
     "exit (28)": "Exit the program",
@@ -684,6 +680,7 @@ commands = {
 
 formatted_output = format_commands(commands)
 print(formatted_output)
+
 
 # def show_commands():
 #     commands = {
