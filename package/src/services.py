@@ -821,10 +821,10 @@ def process_input(commands):
 
     while True:
         # Get user input
-        user_input = input("Enter a command or command number: ").strip().lower()  # Convert input to lowercase and remove whitespace
+        user_input = input("Enter a command or command number: ").strip()  # Remove leading/trailing whitespace
 
         # Exit the program if user enters 'exit'
-        if user_input == "exit":
+        if user_input.lower() == "exit":
             print("Don't worry, all data saved to file.")
             print("Good bye!")
             return False
@@ -843,13 +843,14 @@ def process_input(commands):
             # If the input is not a number, try to find the command directly
             found_command = False
             for command, description in commands.items():
-                if user_input in command.lower():
+                if user_input.lower() in command.lower():
                     print(f"Executing command: {command}")
                     found_command = True
                     # Here you would call the appropriate function based on the command and arguments
                     break
             if not found_command:
-                print("Invalid command. Please try again.")
+                print("Invalid command. Enter 'help' for help.")
+
 
 
 @input_error
