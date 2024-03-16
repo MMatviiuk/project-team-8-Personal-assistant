@@ -755,6 +755,9 @@ contacts = []
 # Define the contacts list
 contacts = []
 
+# Define the contacts list
+contacts = []
+
 # Define the commands dictionary
 commands = {
     # Search
@@ -856,6 +859,26 @@ def process_input(commands):
                     break
             if not found_command:
                 print("Invalid command. Enter 'help' for help.")
+
+# Placeholder classes for demonstration purposes
+class Contact:
+    def __init__(self, name, phones=[], emails=[]):
+        self.name = name
+        self.phones = phones
+        self.emails = emails
+
+# Example usage
+# Creating some contacts
+contact1 = Contact("John Doe", ["123-456-7890", "987-654-3210"], ["john@example.com"])
+contact2 = Contact("Jane Smith", ["111-222-3333"], ["jane@example.com"])
+
+# Adding contacts to the list
+contacts.append(contact1)
+contacts.append(contact2)
+
+# Running the command processing loop
+process_input(commands)
+
 
 
 @input_error
