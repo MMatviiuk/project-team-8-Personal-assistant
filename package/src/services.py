@@ -841,7 +841,7 @@ def process_input(commands):
                 print(f"Executing command: {command}")
                 execute_command(command)
             else:
-                print("Invalid command number. Please try again.")
+                print("Invalid command number. Enter 'help' for help.")
 
         except ValueError:
             # If input cannot be converted to a number, check if it's a valid command
@@ -864,11 +864,11 @@ def execute_command(command):
     elif command.startswith("phone"):
         name = input("Enter the name to get phone numbers: ")
         # Your code to execute the phone command goes here
+    # Add more conditions for other commands as needed
 
 # Entry point of the program
 if __name__ == "__main__":
     process_input(commands)
-
 
 
 @input_error
