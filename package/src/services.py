@@ -727,11 +727,18 @@ def process_input(commands):
         if user_input == "exit":
             return False
 
-# Call the function to display the commands
-print(show_commands(commands))
+        # Split the user input into command and arguments
+        parts = user_input.split()
+        command = parts[0]
+        arguments = parts[1:]
 
-# Call the function to start processing user input
-process_input(commands)
+        # Check if the command is valid
+        if command in commands:
+            print(f"Executing command: {user_input}")
+            # Here you would call the appropriate function based on the command and arguments
+        else:
+            print("Invalid command. Please try again.")
+
 
 
 # def show_commands():
