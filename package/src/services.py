@@ -738,13 +738,6 @@ def process_input(commands):
         else:
             print("Invalid command. Please try again.")
 
-# Call the function to display the commands
-print(show_commands(commands))
-
-# Call the function to start processing user input
-process_input(commands)
-
-
 # def show_commands():
 #     commands = {
 #         "help": "for help",
