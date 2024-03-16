@@ -706,6 +706,7 @@ def show_commands(commands):
 
 
 # Function to process user input
+# Function to process user input
 def process_input(commands):
     """
     This function handles user input, 
@@ -721,19 +722,14 @@ def process_input(commands):
 
     while True:
         # Get user input
-        user_input = input("Insert command: ").strip()
+        user_input = input("Insert command: ").strip().lower()  # Convert input to lowercase and remove whitespace
 
         # Exit the program if user enters 'exit'
         if user_input == "exit":
             return False
 
-        # Split the user input into command and arguments
-        parts = user_input.split()
-        command = parts[0]
-        arguments = parts[1:]
-
         # Check if the command is valid
-        if command in commands:
+        if user_input in commands:
             print(f"Executing command: {user_input}")
             # Here you would call the appropriate function based on the command and arguments
         else:
