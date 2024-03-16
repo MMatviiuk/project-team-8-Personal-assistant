@@ -942,7 +942,6 @@ def main():
                 if 1 <= command_number <= len(commands):
                     command = list(commands.keys())[command_number - 1]
                     print(f"Executing command: {command}")
-                    # Your code to execute the command goes here
                     if command == "find [name] (1)":
                         name = input("Enter the name to search for: ")
                         record = book.find(name)
