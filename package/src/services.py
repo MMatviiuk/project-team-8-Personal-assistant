@@ -806,11 +806,10 @@ def show_commands():
         res.append("    {:<25}  ==>  {} ({})".format(command, description, index))
     return "\n".join(res)
 
-# Function to process user input
 def process_input(commands):
     """
-    This function handles user input, 
-    breaks it down into command and arguments, 
+    This function handles user input,
+    breaks it down into command and arguments,
     and then calls the appropriate function.
 
     Args:
@@ -822,34 +821,33 @@ def process_input(commands):
 
     while True:
         # Get user input
-        user_input = input("Insert command or command number: ").strip().lower()  # Convert input to lowercase and remove whitespace
+        user_input = input("Enter a command or command number: ").strip().lower()  # Convert input to lowercase and remove whitespace
 
         # Exit the program if user enters 'exit'
         if user_input == "exit":
             print("Don't worry, all data saved to file.")
+            print("Good bye!")
             return False
 
-        # Check if the input is a command number
+        # Check if the input is a number
         if user_input.isdigit():
-            # Convert the input to an integer
+            # If the input is a number, try to find the corresponding command
             command_number = int(user_input)
-            # Iterate over the commands dictionary to find the command with the specified number
             for command, description in commands.items():
-                # Extract the command number within square brackets from the description.
-                command_number_from_description = int(description.split()[-1][1:-1])
-                if command_number_from_description == command_number:
+                if description.endswith(f"({command_number})"):
                     print(f"Executing command: {command}")
                     # Here you would call the appropriate function based on the command and arguments
                     break
             else:
                 print("Invalid command number. Please try again.")
         else:
-            # Check if the command is valid
+            # If the input is not a number, try to find the command directly
             if user_input in commands:
                 print(f"Executing command: {user_input}")
                 # Here you would call the appropriate function based on the command and arguments
             else:
                 print("Invalid command. Please try again.")
+
 
 
 @input_error
