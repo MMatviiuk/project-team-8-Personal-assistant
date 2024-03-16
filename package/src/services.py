@@ -833,12 +833,8 @@ def process_input(commands):
         if user_input.isdigit():
             # If the input is a number, try to find the corresponding command
             command_number = int(user_input)
-            command = None
-            for key, value in commands.items():
-                if value.endswith(f"({command_number})"):
-                    command = key
-                    break
-            if command:
+            if 1 <= command_number <= len(commands):
+                command = list(commands.keys())[command_number - 1]
                 print(f"Executing command: {command}")
                 # Here you would call the appropriate function based on the command and arguments
             else:
@@ -854,6 +850,10 @@ def process_input(commands):
                     break
             if not found_command:
                 print("Invalid command. Enter 'help' for help.")
+
+if __name__ == "__main__":
+    process_input(commands)
+
 
 
 @input_error
