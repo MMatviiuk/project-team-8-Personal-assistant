@@ -843,6 +843,32 @@ def process_input(commands):
 
         except ValueError:
             # If input is not a number, try to find
+            try:
+            # Attempt to convert input to a number (for command number)
+            command_number = int(user_input)
+
+            # Validate command number within range
+            if 1 <= command_number <= len(commands):
+                command = list(commands.keys())[command_number - 1]
+                print(f"Executing command: {command}")
+                # Implement function call based on the command (add missing implementation)
+                # ... (replace with actual function calls)
+
+            else:
+                print("Invalid command number. Please try again.")
+
+        except ValueError:
+            # If input is not a number, try to find the command directly
+            found_command = False
+            for command, description in commands.items():
+                if user_input.lower() in command.lower():
+                    print(f"Executing command: {command}")
+                    found_command = True
+                    # Implement function call based on the command (add missing implementation)
+                    # ... (replace with actual function calls)
+                    break
+            if not found_command:
+                print("Invalid command. Enter 'help' for help.")
 
 
 @input_error
