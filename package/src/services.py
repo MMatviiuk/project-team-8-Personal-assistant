@@ -749,7 +749,6 @@ def show_notes(notes):
 # # Call the function to start processing user input
 # process_input(commands)
 
-
 from collections import UserDict
 from datetime import datetime, timedelta
 import json
@@ -926,12 +925,13 @@ def main():
     def show_commands():
         res = []
         for index, (command, description) in enumerate(commands.items(), start=1):
-            res.append("    {:<25}  ==>  {} ({})".format(command, description, index))
+            res.append("  {:<25}  ==>  {} ({})".format(command, description, index))
         return "\n".join(res)
 
     def process_input(commands):
         while True:
             user_input = input("Enter a command or command number: ").strip()
+
             if user_input.lower() == "exit":
                 print("Good bye!")
                 book.save()
