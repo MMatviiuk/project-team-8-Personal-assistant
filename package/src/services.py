@@ -957,6 +957,7 @@ def main():
             if user_input.lower() == "exit":
                 print("Don't worry, all data saved to file.")
                 print("Good bye!")
+                book.save()
                 return False
 
             # Check if the input is a number
@@ -967,6 +968,29 @@ def main():
                     command = list(commands.keys())[command_number - 1]
                     print(f"Executing command: {command}")
                     # Your code to execute the command goes here
+                    if command == "find [name] (1)":
+                        name = input("Enter the name to search for: ")
+                        record = book.find(name)
+                        if record:
+                            print(record)
+                        else:
+                            print("Contact not found.")
+                    elif command == "phone [name] (2)":
+                        name = input("Enter the name to search for: ")
+                        record = book.find(name)
+                        if record:
+                            for phone in record.phones:
+                                print(phone)
+                        else:
+                            print("Contact not found.")
+                    elif command == "all (9)":
+                        book.show_all()
+                    elif command == "exit (28)":
+                        print("Good bye!")
+                        book.save()
+                        return False
+                    else:
+                        print("Command execution pending.")
                 else:
                     print("Invalid command number. Please try again.")
             else:
@@ -974,6 +998,30 @@ def main():
                 if user_input in commands:
                     print(f"Executing command: {user_input}")
                     # Your code to execute the command goes here
+                    command = user_input
+                    if command == "find [name] (1)":
+                        name = input("Enter the name to search for: ")
+                        record = book.find(name)
+                        if record:
+                            print(record)
+                        else:
+                            print("Contact not found.")
+                    elif command == "phone [name] (2)":
+                        name = input("Enter the name to search for: ")
+                        record = book.find(name)
+                        if record:
+                            for phone in record.phones:
+                                print(phone)
+                        else:
+                            print("Contact not found.")
+                    elif command == "all (9)":
+                        book.show_all()
+                    elif command == "exit (28)":
+                        print("Good bye!")
+                        book.save()
+                        return False
+                    else:
+                        print("Command execution pending.")
                 else:
                     print("Invalid command. Enter 'help' for help.")
 
@@ -982,7 +1030,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
 @input_error
@@ -1009,6 +1056,7 @@ def delete(args, book):
         elif field == "notes":
             res = record.remove_notes()
             return res
+
 
 
 ## --------- Не стирать, колись продовжу --------------------------------
