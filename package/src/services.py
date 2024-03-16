@@ -749,6 +749,9 @@ def show_notes(notes):
 # # Call the function to start processing user input
 # process_input(commands)
 
+# Define the contacts list
+contacts = []
+
 # Define the commands dictionary
 commands = {
     # Search
@@ -793,7 +796,7 @@ commands = {
 # Function to format the list of commands
 def show_commands():
     """
-    This function displays a formatted list of available commands with
+    This function displays a formatted list of available commands with 
     descriptions and corresponding numbers for reference.
 
     Returns:
@@ -807,7 +810,8 @@ def show_commands():
 
 def process_input(commands):
     """
-    This function handles user input, breaks it down into command and arguments,
+    This function handles user input,
+    breaks it down into command and arguments,
     and then calls the appropriate function.
 
     Args:
@@ -836,12 +840,53 @@ def process_input(commands):
                 command = list(commands.keys())[command_number - 1]
                 print(f"Executing command: {command}")
                 # Implement function call based on the command
-                # ... (replace with actual function calls)
-                # For example:
                 if command == "find [name] (1)":
                     # Implement the "find" command functionality
-                    name
-
+                    name = input("Enter the name to search for: ")
+                    found_contacts = find_contact_by_name(name)
+                    if found_contacts:
+                        print("Found contacts:")
+                        for contact in found_contacts:
+                            print(contact)
+                    else:
+                        print("No contacts found with that name.")
+                elif command == "phone [name] (2)":
+                    # Implement the "phone" command functionality
+                    name = input("Enter the name to search for: ")
+                    get_person_phone_numbers(name)
+                elif command == "email [name] (3)":
+                    # Implement the "email" command functionality
+                    name = input("Enter the name to search for: ")
+                    get_person_email_addresses(name)
+                # Other commands can be added similarly
+            else:
+                print("Invalid command number. Please try again.")
+        except ValueError:
+            # If conversion to integer fails, it's not a command number, try finding command directly
+            found_command = False
+            for cmd, desc in commands.items():
+                if user_input.lower() in cmd.lower():
+                    found_command = True
+                    print(f"Executing command: {cmd}")
+                    # Implement function call based on the command
+                    if cmd == "find [name] (1)":
+                        name = user_input.split()[1]  # Extracting name from user input
+                        found_contacts = find_contact_by_name(name)
+                        if found_contacts:
+                            print("Found contacts:")
+                            for contact in found_contacts:
+                                print(contact)
+                        else:
+                            print("No contacts found with that name.")
+                    elif cmd == "phone [name] (2)":
+                        name = user_input.split()[1]  # Extracting name from user input
+                        get_person_phone_numbers(name)
+                    elif cmd == "email [name] (3)":
+                        name = user_input.split()[1]  # Extracting name from user input
+                        get_person_email_addresses(name)
+                    # Other commands can be added similarly
+            if not found_command:
+                print("Invalid command. Enter 'help' for help.")
 
 
 @input_error
