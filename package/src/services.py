@@ -856,6 +856,7 @@ if __name__ == "__main__":
 
 
 
+
 @input_error
 def delete(args, book):
     if len(args) == 1:  # if in args 1 arg
