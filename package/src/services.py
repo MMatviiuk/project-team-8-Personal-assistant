@@ -630,11 +630,128 @@ def show_notes(notes):
         return "No notes added."
 
 
-# Import libraries
-import re
+# # Import libraries
+#     """
+#     The code defines a dictionary of commands with descriptions and numbers, formats the list of
+#     commands, and processes user input based on the commands provided.
+    
+#     :param commands: {
+#     :return: The code provided defines two functions: `show_commands(commands)` and
+#     `process_input(commands)`.
+#     """
+# import re
 
-# Define the commands dictionary
-commands = {
+# # Define the commands dictionary
+# commands = {
+#     # Search
+#     "find [name] (1)": "Find contact by name",
+#     "phone [name] (2)": "Get person's phone numbers",
+#     "email [name] (3)": "Get person's email addresses",
+#     "show-birthday [name] (4)": "Get person's birthday",
+#     "show-address [name] (5)": "Show person's address",
+#     "show-note [name] (6)": "Get person's note",
+#     "birthdays (without argument) (7)": "Get all persons with birthdays next week",
+#     "birthdays [days] (8)": "Get birthdays list for a custom number of days",
+#     "all (9)": "Get all contacts list",
+
+#     # Add
+#     "add [name] [phone] (10)": "Add new contact",
+#     "add-birthday [name] (11)": "Add person's birthday",
+#     "add-email [name] [email] (12)": "Add email to existing contact",
+#     "add-address [name] [street] [house_number] [city] [postal_code] [country] (13)": "Add address",
+#     "add-note [name] (14)": "Add person's note",
+
+#     # Change
+#     "change [name] [phone] (15)": "Change person's phone number",
+#     "change-birthday [name] (16)": "Change person's birthday",
+#     "edit-address [name] [street] [house_number] [city] [postal_code] [country] (17)": "Edit address",
+#     "change-note [name] (18)": "Change person's note",
+
+#     # Delete
+#     "delete [name] (19)": "Delete contact",
+#     "delete [name] phones (20)": "Delete person's phones",
+#     "delete-birthday [name] (21)": "Delete person's birthday",
+#     "delete-email [name] [email] (22)": "Delete specific email of a contact",
+#     "delete-address [name] (23)": "Delete person's address (by index)",
+#     "delete-note [name] (24)": "Delete person's note",
+#     "delete [name] notes (25)": "Delete all notes of a contact",
+
+#     # General
+#     "help (26)": "Get help",
+#     "hello (27)": "Get a greeting",
+#     "exit (28)": "Exit the program",
+# }
+
+# # Function to format the list of commands
+# def show_commands(commands):
+#     """
+#     This function displays a formatted list of available commands with 
+#     descriptions and corresponding numbers for reference.
+
+#     Args:
+#         commands: A dictionary where keys are command names (strings) and values 
+#                 are descriptions (strings) with command numbers in square brackets.
+
+#     Returns:
+#         A string containing the formatted list of commands, separated by newlines.
+#     """
+
+#     formatted_commands = []
+#     for command, description in commands.items():
+#         # Extract the command number within square brackets from the description.
+#         command_number = description.split()[-1][1:-1]
+
+#         # Remove the extracted command number from the description for cleaner output.
+#         description = ' '.join(description.split()[:-1])
+
+#         # Format the command string with justification and clear separation.
+#         formatted_command = f"{command.ljust(36)}({command_number}) ==> {description}"
+
+#         # Add the formatted command string to a list for later joining.
+#         formatted_commands.append(formatted_command)
+
+#     # Join all formatted commands with newlines to create the final output string.
+#     return "\n".join(formatted_commands)
+
+
+# # Function to process user input
+# def process_input(commands):
+#     """
+#     This function handles user input, 
+#     breaks it down into command and arguments, 
+#     and then calls the appropriate function.
+
+#     Args:
+#         commands: A dictionary of available commands.
+
+#     Returns:
+#         A boolean value indicating whether the program should continue running.
+#     """
+
+#     while True:
+#         # Get user input
+#         user_input = input("Insert command: ").strip().lower()  # Convert input to lowercase and remove whitespace
+
+#         # Exit the program if user enters 'exit'
+#         if user_input == "exit":
+#             return False
+
+#         # Check if the command is valid
+#         if user_input in commands:
+#             print(f"Executing command: {user_input}")
+#             # Here you would call the appropriate function based on the command and arguments
+#         else:
+#             print("Invalid command. Please try again.")
+
+# # Call the function to display the commands
+# print(show_commands(commands))
+
+# # Call the function to start processing user input
+# process_input(commands)
+
+
+def show_commands():
+    commands = {
     # Search
     "find [name] (1)": "Find contact by name",
     "phone [name] (2)": "Get person's phone numbers",
@@ -672,125 +789,12 @@ commands = {
     "help (26)": "Get help",
     "hello (27)": "Get a greeting",
     "exit (28)": "Exit the program",
-}
+    }
 
-# Function to format the list of commands
-def show_commands(commands):
-    """
-    This function displays a formatted list of available commands with 
-    descriptions and corresponding numbers for reference.
-
-    Args:
-        commands: A dictionary where keys are command names (strings) and values 
-                are descriptions (strings) with command numbers in square brackets.
-
-    Returns:
-        A string containing the formatted list of commands, separated by newlines.
-    """
-
-    formatted_commands = []
-    for command, description in commands.items():
-        # Extract the command number within square brackets from the description.
-        command_number = description.split()[-1][1:-1]
-
-        # Remove the extracted command number from the description for cleaner output.
-        description = ' '.join(description.split()[:-1])
-
-        # Format the command string with justification and clear separation.
-        formatted_command = f"{command.ljust(36)}({command_number}) ==> {description}"
-
-        # Add the formatted command string to a list for later joining.
-        formatted_commands.append(formatted_command)
-
-    # Join all formatted commands with newlines to create the final output string.
-    return "\n".join(formatted_commands)
-
-
-# Function to process user input
-def process_input(commands):
-    """
-    This function handles user input, 
-    breaks it down into command and arguments, 
-    and then calls the appropriate function.
-
-    Args:
-        commands: A dictionary of available commands.
-
-    Returns:
-        A boolean value indicating whether the program should continue running.
-    """
-
-    while True:
-        # Get user input
-        user_input = input("Insert command: ").strip().lower()  # Convert input to lowercase and remove whitespace
-
-        # Exit the program if user enters 'exit'
-        if user_input == "exit":
-            return False
-
-        # Check if the command is valid
-        if user_input in commands:
-            print(f"Executing command: {user_input}")
-            # Here you would call the appropriate function based on the command and arguments
-        else:
-            print("Invalid command. Please try again.")
-
-# Call the function to display the commands
-print(show_commands(commands))
-
-# Call the function to start processing user input
-process_input(commands)
-
-
-# def show_commands():
-#     commands = {
-#         "help": "for help",
-#         "hello": "just fo say 'Hi!'",
-#         # Phone
-#         "add [name] [phone]": "add new contact",
-#         "phone [name]": "get person phone numbers",
-#         "change [name] [phone]": "change person phone number",
-#         # Birthday
-#         "add-birthday [name]": "add person birthday",
-#         "show-birthday [name]": "get person birthday",
-#         "change-birthday [name]": "change person birthday",
-#         "delete-birthday [name]": "delete person birthday",
-#         "birthdays": "get all persons with birtday next week ",
-#         "birthdays [days]": "get birtdays list for next custom amount of days",
-#         # Email
-#         "add-email [name] [email]": "add email to existing contact",
-#         "delete-email [name] [email]": "delete existing email of specific contact",
-#         "email [name]": "get emails of person",
-#         "find [name]": "find contact by name: displays all contact's information",
-#         #         "add-email [name]": "add person email",
-#         #         "show-email [name]": "get person email",
-#         #         "change-email [name]": "change person email",
-#         #         "delete-email [name]": "delete person email",
-#         # Address
-#         "add-address [name] [street] [house_number] [city] [postal_code] [country]": "add",
-#         "edit-address [name] [street] [house_number] [city] [postal_code] [country]": "edit",
-#         "show-address [name]": "show person address",
-#         "remove-address [name]": "remove an address from a contact by its index",
-#         # Note
-#         "add-note [name]": "add person note",
-#         "show-note [name]": "get person note",
-#         "change-note [name]": "change person note",
-#         "delete-note [name]": "delete person note",
-#         # all
-#         "delete [name]": "delete contact",
-#         "delete [name] phones": "delete person phones",
-#         "delete [name] birthday": "delete person birthday",
-#         "delete [name] email": "delete person email",
-#         "delete [name] address": "delete person address",
-#         "delete [name] notes": "delete person notes",
-#         "all": "for get all contact list",
-#         "exit": "for exit",
-#     }
-
-    # res = []
-    # for command, desctiption in commands.items():
-    #     res.append("    {:<25}  ==>  {} ".format(command, desctiption))
-    # return "\n".join(res)
+    res = []
+    for command, desctiption in commands.items():
+        res.append("    {:<25}  ==>  {} ".format(command, desctiption))
+    return "\n".join(res)
 
 
 @input_error
