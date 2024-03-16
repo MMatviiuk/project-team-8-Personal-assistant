@@ -629,7 +629,6 @@ def show_notes(notes):
     else:
         return "No notes added."
 
-
 # Import libraries
 import re
 
@@ -739,6 +738,11 @@ def process_input(commands):
         else:
             print("Invalid command. Please try again.")
 
+# Call the function to display the commands
+print(show_commands(commands))
+
+# Call the function to start processing user input
+process_input(commands)
 
 
 # def show_commands():
