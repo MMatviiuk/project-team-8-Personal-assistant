@@ -629,6 +629,7 @@ def show_notes(notes):
     else:
         return "No notes added."
 
+
 # Import libraries
 import re
 
@@ -718,15 +719,19 @@ def process_input(commands):
         A boolean value indicating whether the program should continue running.
     """
 
+    while True:
+        # Get user input
+        user_input = input("Insert command: ").strip()
+
+        # Exit the program if user enters 'exit'
+        if user_input == "exit":
+            return False
+
+# Call the function to display the commands
 print(show_commands(commands))
 
-while True:
-    # Get user input
-    user_input = input("Insert command: ").strip()
-
-    # Exit the program if user enters 'exit'
-    if user_input == "exit":
-        return False
+# Call the function to start processing user input
+process_input(commands)
 
 
 # def show_commands():
