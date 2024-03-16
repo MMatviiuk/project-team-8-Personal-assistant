@@ -842,11 +842,16 @@ def process_input(commands):
                 print("Invalid command number. Please try again.")
         else:
             # If the input is not a number, try to find the command directly
-            if user_input in commands:
-                print(f"Executing command: {user_input}")
-                # Here you would call the appropriate function based on the command and arguments
-            else:
+            found_command = False
+            for command, description in commands.items():
+                if user_input in command.lower():
+                    print(f"Executing command: {command}")
+                    found_command = True
+                    # Here you would call the appropriate function based on the command and arguments
+                    break
+            if not found_command:
                 print("Invalid command. Please try again.")
+
 
 
 @input_error
