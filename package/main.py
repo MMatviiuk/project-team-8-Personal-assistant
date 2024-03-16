@@ -16,7 +16,7 @@ class FirstWordCompleter(Completer):
 
     def get_completions(self, document, complete_event):
         text = document.text_before_cursor
-        word = text.split(' ')[0]  # Беремо лише перше слово
+        word = text.split(' ')[0]
         
         if ' ' not in text:
             for word in self.word_list:
@@ -76,7 +76,7 @@ def main():
 
 # Find  
         elif command == "find-contact":
-            print(find_contacts(args, book))
+            print(find(args, book))
         
 
 #Phone
