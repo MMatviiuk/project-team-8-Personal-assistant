@@ -849,7 +849,6 @@ def process_input(commands):
                 print("Invalid command. Please try again.")
 
 
-
 @input_error
 def delete(args, book):
     if len(args) == 1:  # if in args 1 arg
