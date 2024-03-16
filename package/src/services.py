@@ -629,7 +629,7 @@ def show_notes(notes):
     else:
         return "No notes added."
 
-def format_commands(commands):
+def show_commands(commands):
     formatted_commands = []
     for command, description in commands.items():
         # Extract command number from the description
@@ -678,9 +678,8 @@ commands = {
     "exit (28)": "Exit the program",
 }
 
-formatted_output = format_commands(commands)
+formatted_output = show_commands(commands)
 print(formatted_output)
-
 
 # def show_commands():
 #     commands = {
