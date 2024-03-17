@@ -16,8 +16,9 @@ Error Handling: Gracefully handle incorrect or missing commands, providing helpf
 
 2. Dependencies: The program relies on certain external libraries. Install them using pip:
 
-Bash
+```bash
 pip install -r requirements.txt
+```
 
 Run the Program: Execute the main Python script (e.g., main.py) using the command prompt or terminal:
 
